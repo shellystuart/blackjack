@@ -9,33 +9,38 @@ class Blackjack
 
   def initialize
     @deck = Deck.new
-    @player_hand = Hand.new(deck.deal(2))
-    @dealer_hand = Hand.new(deck.deal(2))
+    @player_hand = Hand.new
+    @dealer_hand = Hand.new
   end
 
-  def start
-    describe_hands
+  def play_game
+    start
     hit_or_stand
   end
 
-  def describe_hands
-    output = ""
-    player_hand.cards.each do |card|
-      output += "Player was dealt #{card.rank}#{card.suit}\n"
+  def start
+    puts "Welcome to Blackjack!"
+    deal_card(@player_hand)
+    deal_card(@dealer_hand)
+    deal_card(@player_hand)
+    deal_card(@dealer_hand)
+    puts "Player score: #{@player_hand.calculate_hand}"
+  end
+
+  def deal_card(player)
+    new_card = @deck.deal
+    player.cards << new_card
+    if player == @player_hand
+      puts "Player was dealt #{new_card.rank}#{new_card.suit}"
     end
-    dealer_hand.cards.each do |card|
-      output += "Dealer was dealt #{card.rank}#{card.suit}\n"
-    end
-    #binding.pry
-    output
   end
 
   def hit_or_stand
-    print "Hit or stand (H/S):"
-    @input = gets.chomp.upcase!
+    puts "Hit or stand (H/S):"
+    @input = gets.chomp.upcase
     until @input == "H" || @input == "S"
       puts "Invalid input, try again"
-      @input = gets.chomp.upcase!
+      @input = gets.chomp.upcase
     end
 
 

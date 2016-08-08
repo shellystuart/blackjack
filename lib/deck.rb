@@ -20,7 +20,7 @@ class Deck
     cards.shuffle!
   end
 
-  def deal(num)
-    cards.shift(num)
+  def deal
+    cards.shift
   end
 end
