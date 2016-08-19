@@ -6,21 +6,27 @@ class Deck
 
   attr_accessor :cards
 
-  def initialize
-    @cards = build_deck
+  def initialize(options = nil)
+    @cards = build_deck(options)
   end
 
-  def build_deck
+  def build_deck(options)
     cards = []
     SUITS.each do |suit|
       RANKS.each do |rank|
         cards << Card.new(rank,suit)
       end
     end
-    cards.shuffle!
+    if options == "unshuffled"
+      cards
+    elsif options == "reversed"
+      cards.reverse
+    else
+      cards.shuffle
+    end
   end
 
-  def deal(num)
-    cards.shift(num)
+  def deal
+    cards.shift
   end
 end
