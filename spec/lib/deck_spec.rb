@@ -14,8 +14,20 @@ RSpec.describe Deck do
     end
 
     it "shuffles deck after being built" do
-      first_thirteen = deck.cards[1..13]
+      first_thirteen = deck.cards[0..12]
       expect(first_thirteen.all? {|card| card.suit == "♦" }).to be false
+    end
+
+    it "does not shuffle deck if specified" do
+      new_deck = Deck.new("unshuffled")
+      first_thirteen = new_deck.cards[0..12]
+      expect(first_thirteen.all? {|card| card.suit == "♦"}).to be true
+    end
+
+    it "returns a reverse unshuffled deck if specified" do
+      new_deck = Deck.new("reversed")
+      first_thirteen = new_deck.cards[0..12]
+      expect(first_thirteen.all? {|card| card.suit == "♥"}).to be true
     end
 
     it 'creates an array of card objects' do
